@@ -1,0 +1,58 @@
+# Scripts for identifying possible plant genes in repeat predictions
+
+## A. The flow:
+
+### 1. BLASTX repeats against the PlantTribes v1.1 protein sequence set that has had sequences belonging to PlantTribes OrthoMCL, Orthofinder, or GFam orthogroups with repeat-related terms in their annotation removed.
+
+#### Scripts:
+
+run blastx
+blast_parser.pl converts default BLAST output to another form. See 'module help genomics/blastparser'
+
+### 2. From the BLASTX result, identify the highest-scoring alignment for all queries (repeat predictions), and make a histogram showing the distribution of the percent of each repeat prediction that is overlapped by the highest-scoring alignment. Visually identify the minimum percent overlap above which sequences will [probably] be removed from the set of repeat predictions (the threshold will be different for different sizes of repeat predicion sets, but has been the "tail" of the distribution so far.)
+
+#### Scripts:
+
+blast_parser.pl_output_stats.py
+
+### 3. Look at the OrthoMCL, Orthofinder, and GFam orthogroup annotations for the subjects (PlantTribe genes) of the highest-scoring alignment for each repeat prediction query, manually inspect for annotations that make sense (i.e. are not definitely plant genes).
+
+#### Scripts:
+
+GetPlantTribesOGinfo.py
+
+### 4. Remove sequences from the repeat prediction set.
+
+
+
+## B. Preparing the PlantTribes v1.1 gene set
+
+### 1. Identify OGs in PlantTribes 1.1 with TE-related terms in their annotation
+$ pwd
+/home/joshd/data/other/PlantTribes/22Gv1.1/annot
+
+#### a. Identify PlantTribes 1.1 OrthoMCL orthogroups with TE-related terms in their annotations
+grep -E '[Tt]ranspos[(able)(on)(ase)]|[Rr]etrovir|[Hh]elitron|[Rr]everse.transcriptase|[Vv]ir[(us)(al)]|[Hh]erpes|[Ii]ntegrase' orthomcl.avg_evalue.summary > orthomcl.avg_evalue.summary.TEs
+grep -E '[Tt]ranspos[(able)(on)(ase)]|[Rr]etrovir|[Hh]elitron|[Rr]everse.transcriptase|[Vv]ir[(us)(al)]|[Hh]erpes|[Ii]ntegrase' orthofinder.avg_evalue.summary > orthofinder.avg_evalue.summary.TEs
+grep -E '[Tt]ranspos[(able)(on)(ase)]|[Rr]etrovir|[Hh]elitron|[Rr]everse.transcriptase|[Vv]ir[(us)(al)]|[Hh]erpes|[Ii]ntegrase' gfam.avg_evalue.summary > gfam.avg_evalue.summary.TEs
+
+cat orthomcl.avg_evalue.summary.TEs | awk '{print $1}' > orthomcl.avg_evalue.summary.TEs.OG_IDs.txt
+cat orthofinder.avg_evalue.summary.TEs | awk '{print }' > orthofinder.avg_evalue.summary.TEs.OG_IDs 
+cat gfam.avg_evalue.summary.TEs | awk '{print }' > gfam.avg_evalue.summary.TEs.OG_IDs
+
+#### b. Extract gene names for all genes in orthogroups with TE terms in their OrthoMCL annotations. These genes will be removed from the set of gene sequences in PlantTribes 1.1
+~/scripts/PlantTribes.matt/GetPlantTribesOGinfo.py < orthomcl.avg_evalue.summary.TEs.OG_IDs.txt -jg -og > orthomcl.avg_evalue.summary.TEs.geneNames
+~/scripts/GetPlantTribesOGinfo.py < orthofinder.avg_evalue.summary.TEs.OG_IDs -og -jg > orthofinder.avg_evalue.summary.TEs.geneNames
+~/scripts/GetPlantTribesOGinfo.py < gfam.avg_evalue.summary.TEs.OG_IDs -og -jg > gfam.avg_evalue.summary.TEs.geneNames
+
+### 2. Remove sequences with TE annotations. The resulting set of sequences are assumed to be "plant genes" and will be used to identify sequences that should be removed from Salvinia repeat predictions.
+cat orthomcl.avg_evalue.summary.TEs.geneNames > PlantTribes_geneWithTEannotations.tmp
+cat orthofinder.avg_evalue.summary.TEs.geneNames >> PlantTribes_geneWithTEannotations.tmp
+cat gfam.avg_evalue.summary.TEs.geneNames >> PlantTribes_geneWithTEannotations.tmp
+
+sort PlantTribes_geneWithTEannotations | uniq > PlantTribes_geneWithTEannotations
+
+$ pwd
+/home/derstudent/data/other/PlantTribes/22Gv1.1/db/blast/masked/Less_TEs/without_genes_with_OrthoMCL.Orthofinder.GFam_TEannotaitons
+
+ ~/scripts/extract_fasta_seqs.py ../../22_genomes_cleaned.faa /home/joshd/data/other/PlantTribes/22Gv1.1/annot/TEs/PlantTribes_geneWithTEannotations 22_genomes_cleaned.LESS_TE_OGs.OrthoMCL.Orthofinder.GFam.faa -v

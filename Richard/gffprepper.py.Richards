@@ -1,0 +1,51 @@
+#!/usr/bin/env python
+
+# METHOD ONE W/O CSV
+
+#set declarations
+# import re
+# import sys
+# file = sys.argv[1]
+
+#1 read the lines
+# with open(file, 'r') as gff:
+# 	for line in gff:
+		
+#2 split the lines from the right with the separator as a tab and return only the right most line
+
+#3 split the line along the KEY=VALUE and ";" separators
+
+#4.1 if a string starts with ID= and ends with ;, or starts with ID= and ends at the line, append a tab that to the end of the line, or else if the string contains nothing like that, append a tab and then another tab
+
+#5 continue for:
+# Name=
+# Alias=
+# Parent= 
+# Target=
+# Gap=
+# Derives_from = 
+# Note= 
+# Dbxref=
+# Ontology_term=
+# Is_circular=
+
+#6 find all cases where a string is not contained within the parameters (in order to catch any potential tag=value pairs not mentioned
+
+
+
+
+
+# METHOD TWO WITH CSV
+
+#set declarations
+import re
+import sys
+import csv
+file = csv.reader(open(sys.argv[1], 'rb'), delimiter='\t')
+#1 open file
+# with open(file) as gff:
+for i in range(20):
+	print file.next()
+#2 declare columns
+#3 declare 9th column as string
+#4 append relevant strings into rows, or append what goes into gff files

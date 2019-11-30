@@ -1,0 +1,41 @@
+blast_parser.pl
+blast_parser.pl_output_stats.py
+../filter_repeat_library.sh: line 125: GetPlantTribesOGinfo.py: command not found
+../filter_repeat_library.sh: line 134: GetPlantTribesOGinfo.py: command not found
+../filter_repeat_library.sh: line 142: GetPlantTribesOGinfo.py: command not found
+../filter_repeat_library.sh: line 151: GetPlantTribesOGinfo.py: command not found
+../filter_repeat_library.sh: line 159: GetPlantTribesOGinfo.py: command not found
+../filter_repeat_library.sh: line 168: GetPlantTribesOGinfo.py: command not found
+blast_parser.pl
+blast_parser.pl_output_stats.py
+cat
+GetPlantTribesOGinfo.py OrthoMCL summary
+GetPlantTribesOGinfo.py OrthoMCL annotation
+GetPlantTribesOGinfo.py Orthofinder summary
+Traceback (most recent call last):
+  File "/home/derstudent/scripts/repeat_filtering/GetPlantTribesOGinfo.py", line 74, in <module>
+    for line in open(l):
+KeyboardInterrupt
+GetPlantTribesOGinfo.py Orthofinder annotation
+Traceback (most recent call last):
+  File "/home/derstudent/scripts/repeat_filtering/GetPlantTribesOGinfo.py", line 80, in <module>
+    OGmap[OG].add(geneName)
+KeyboardInterrupt
+GetPlantTribesOGinfo.py GFam summary
+Traceback (most recent call last):
+  File "/home/derstudent/scripts/repeat_filtering/GetPlantTribesOGinfo.py", line 93, in <module>
+    OGannot[OG] = '\t'.join(contents[1:])
+KeyboardInterrupt
+GetPlantTribesOGinfo.py GFam annotation
+blast_parser.pl
+blast_parser.pl_output_stats.py
+cat
+GetPlantTribesOGinfo.py OrthoMCL summary
+GetPlantTribesOGinfo.py OrthoMCL annotation
+Traceback (most recent call last):
+  File "/home/derstudent/scripts/repeat_filtering/GetPlantTribesOGinfo.py", line 74, in <module>
+    for line in open(l):
+  File "/share/apps/Python-3.4.3/lib/python3.4/encodings/latin_1.py", line 25, in decode
+    def decode(self, input, final=False):
+KeyboardInterrupt
+GetPlantTribesOGinfo.py Orthofinder summary

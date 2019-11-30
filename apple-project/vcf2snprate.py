@@ -1,0 +1,1 @@
+../vcf/vcf2snprate.py

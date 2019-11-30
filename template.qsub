@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -k oe
+#PBS -j oe
+#PBS -m ea
+#PBS -M your@email.address
+#PBS -q default
+#PBS -l nodes=1:ppn=40
+#PBS -N jobname
+
+
+# Set the working directory
+cd /my/working/directory
+
+# Things to do before job starts, for example loading modules
+
+# Record when the job starts
+echo "START"
+date
+
+# Main job - put your commands here
+
+
+# Record when the job ends
+echo "END"
+date

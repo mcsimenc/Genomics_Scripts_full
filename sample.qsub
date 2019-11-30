@@ -1,0 +1,35 @@
+#!/bin/bash
+# request resources - nodes,processors,walltime,memory,etc. only request what you need
+#PBS -l nodes=1:ppn=16 
+#PBS -l walltime=24:00:00
+#PBS -l mem=32gb
+# name your job, keep it short
+#PBS -N test_job
+# specify queue: default,standard,performance
+#PBS -q default
+# keep the standard output and error streams in a file
+#PBS -k oe
+# merge standard output and error streams are merged in the standard output file
+#PBS -j oe
+
+# send email about the job on [b]egin,[e]nd,[a]bort
+
+#PBS -m bea
+
+#PBS -M EMAIL_ADDRESS@gmail.com
+
+# set to your working directory
+workdir=/home/derstudent/users/WORKINGDIR
+cd $workdir
+
+echo "START"
+date
+
+#load modules, if needed
+module load blast
+
+# run a job
+blastx -db plastid_genes -query assembly.fa -num_threads 16 -evalue 1e-5 -outfmt 6 -out result.blastn.txt
+
+echo "END"
+date

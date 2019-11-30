@@ -1,0 +1,8 @@
+cat
+GetPlantTribesOGinfo.py OrthoMCL summary
+GetPlantTribesOGinfo.py OrthoMCL annotation
+GetPlantTribesOGinfo.py Orthofinder summary
+GetPlantTribesOGinfo.py Orthofinder annotation
+GetPlantTribesOGinfo.py GFam summary
+GetPlantTribesOGinfo.py GFam annotation
+diffLines.py

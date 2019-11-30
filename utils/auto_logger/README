@@ -1,0 +1,16 @@
+This program will execute a function call and write some information to a log file.
+An example is:
+
+auto_logger.py -set ~/mylog.txt
+auto_logger.py -c "echo \"ECHO, ECHo, ECho, Echo, echo, ech., ec.., ec.., e..., ...\"" -note "A pretend echo call"
+
+After running, look at the log.
+
+cat ~/mylog.txt
+
+Wed Oct 12 12:40:56 PDT 2016
+$ pwd
+/home/derstudent
+# A pretend echo call
+echo "ECHO, ECHo, ECho, Echo, echo, ech., ec.., ec.., e..., ..."
+

@@ -1,0 +1,14 @@
+blast_parser.pl
+OK, processed 5325 queries, 761932 hits
+blast_parser.pl_output_stats.py
+blast_parser.pl
+OK, processed 5325 queries, 761932 hits
+blast_parser.pl_output_stats.py
+cat
+GetPlantTribesOGinfo.py OrthoMCL summary
+GetPlantTribesOGinfo.py OrthoMCL annotation
+GetPlantTribesOGinfo.py Orthofinder summary
+GetPlantTribesOGinfo.py Orthofinder annotation
+GetPlantTribesOGinfo.py GFam summary
+GetPlantTribesOGinfo.py GFam annotation
+diffLines.py
