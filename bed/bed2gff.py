@@ -1,29 +1,46 @@
 #!/usr/bin/env python3
+# Converts a 10-column BED file to a GFF3 file
 
-# converts from BED format as in bedops gff2bed output to GFF3 format
 import sys
 
 
+def help():
+    print('''
+    Usage:
+    ------------
+    bed2gff < file.bed > file.gff
+
+    Description:
+    ------------
+    Converts a 10-column BED file such as the type created from a GFF3
+    file by the BEDOPS script gff2bed.
+
+    BED uses 0-based numbering for features. Length = start - end
+    GFF3 uses 1-based numbering for features. Length = start - end + 1
+
+        ''')
+    exit(0)
+
+
+# Print help information
+args = sys.argv
+if '-h' in args:
+    help()
+
+# Read from stdin
 for line in sys.stdin:
+    # Output comments from the input BED as they are
+    if line.startswith('#'):
+        print(line)
+    # Read each line in the BED file, convert the coordinates from
+    # 0-based to 1-based and output GFF3 lines in which the fields are
+    # mostly the same but ordered differently
+    else:
+        (scaf, bed_start, bed_end, name, score, strand, source, Type, unknown, 
+                attr)  = line.strip().split('\t')
 
-	if line.startswith('#'):
-		print(line)
+        gff_start = str(int(bed_start) + 1)
+        gff_end = bed_end
 
-	else:
-		(scaf, bed_start, bed_end, name, score, strand, source, Type, unknown, attr)  = line.strip().split('\t')
-
-		gff_start = str(int(bed_start) + 1)
-		gff_end = bed_end
-
-		print('\t'.join([scaf, source, Type, gff_start, gff_end, score, strand, '.', attr]))
-
-
-# BED
-# Scaf, start, end, Name, score, strand, source, type, attr
-
-#Azfi_s0001	0	565	Azfi_s0001:hit:191:1.3.0.0	2.94e+03	+	repeatmasker	match	.	ID=Azfi_s0001:hit:191:1.3.0.0;Name=species:deg7180000005503|quiver|genus:Unspecified;Target=species:deg7180000005503|quiver|genus:Unspecified 1014 1371 +
-
-# GFF
-# Scaf, source, type, start, end, score, strand, phase, attr
-
-#Azfi_s4737	repeatmasker	match	6334	6375	12	+	.	ID=Azfi_s4737:hit:173539:1.3.0.0;Name=species:A-rich|genus:Low_complexity;Target=species:A-rich|genus:Low_complexity 1 44 +
+        print('\t'.join([scaf, source, Type, gff_start, gff_end, score, 
+                strand, '.', attr]))
